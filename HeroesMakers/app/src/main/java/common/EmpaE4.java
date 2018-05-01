@@ -24,9 +24,9 @@ import java.util.TimerTask;
 public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatusDelegate {
 
     private static final String EMPATICA_API_KEY = "b1e5dc72e0d64626ba5138285a78480e"; //ADD API KEY
-    private static final long START_DELAY_MS = (1000*60*6);
+    private static final long START_DELAY_MS = (1000*60);
     //private static final long START_DELAY_MS = (1000*60);
-    private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
+    private static final long EMPA_TIMER_PERIOD_MS = (1000*5);
     //private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
     private EmpaDeviceManager deviceManager = null;
     private MeasurementClass measure_gsr = new MeasurementClass(60,10);

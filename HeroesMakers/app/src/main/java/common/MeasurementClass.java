@@ -23,7 +23,8 @@ public class MeasurementClass {
 
     public void add_mes(float smp,double ts)
     {
-        current_mean = (current_mean*(current_samples-1) + smp)/current_samples;
+//        current_mean = (current_mean*(current_samples-1) + smp)/current_samples;
+        current_mean = smp;
         if (index_minor==0)
         {
             base_ts = ts;

@@ -10,8 +10,18 @@
     <color name="white">#ffffff</color>
     <color name="p_drawer">#b2dfdb</color>
     <color name="drawer_divider">#DDDDDD</color>
+
     <color name="success_green">#41BCA0</color>
     <color name="wrong_red">#FF4081</color>
 
+    <color name="p_secondary">#e0f2f1</color>
+    <color name="p_dark">#82ada9</color>
+    <color name="p_dark_black">#37474f</color>
+    <color name="problem">#f48fb1</color>
+    <color name="ok">#a5d6a7</color>
+
+    <color name="black">#000000</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#00FF00</color>
 
 </resources>

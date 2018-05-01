@@ -5,14 +5,16 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:orientation="vertical"
-                                        xmlns:tools="http://schemas.android.com/tools">
+                                        android:fitsSystemWindows="true"
+                                        xmlns:tools="http://schemas.android.com/tools"
+    tools:openDrawer="start">
 
-<FrameLayout
+<!--<FrameLayout
     android:id="@+id/full_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent">-->
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -20,7 +22,12 @@
         android:elevation="0dp"
         app:theme="@style/Theme_Toolbar.Toolbar">
 
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>-->
+
+    <include
+        layout="@layout/app_bar_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <android.support.design.widget.NavigationView
@@ -33,5 +40,6 @@
         app:itemTextAppearance="@style/text_c3_14"
         app:theme="@style/DrawerTheme" />
 
-</FrameLayout>
+<!--</FrameLayout>-->
+
 </android.support.v4.widget.DrawerLayout>

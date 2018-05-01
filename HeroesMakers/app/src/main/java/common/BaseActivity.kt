@@ -6,16 +6,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.support.annotation.VisibleForTesting
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -25,14 +28,15 @@ import app.heroeswear.com.heroesmakers.R
 import app.heroeswear.com.heroesmakers.login.Activities.HomePageActivity
 import app.heroeswear.com.heroesmakers.login.models.User
 import common.controls.SmoothActionBarDrawerToggle
-
 /**
  * Created by livnatavikasis on 29/04/2018.
  */
 
 
-open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemSelectedListener
-{
+
+open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemSelectedListener {
+
+
     @VisibleForTesting
     var mProgressDialog: ProgressDialog? = null
     protected var fbManager: FirebaseManager? = null
@@ -43,20 +47,20 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     private val REQUEST_ENABLE_BT = 1
     private val REQUEST_PERMISSION_ACCESS_COARSE_LOCATION = 1
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("david","onCreate")
+        fbManager = FirebaseManager.newInstance()
+    }
+
+
+    protected fun populateNavigationHeaderView(isInit: Boolean) {
+        val headerView = mNavigationView?.getHeaderView(0)
+        (headerView?.findViewById(R.id.lbl_name) as TextView).setText(fbManager?.mCurrentUser?.email)
         initEmpaE4()
     }
 
-
-    protected fun populateNavigationHeaderView(isInit:  Boolean)
-    {
-        val headerView = mNavigationView?.getHeaderView(0)
-        (headerView?.findViewById(R.id.lbl_name) as TextView).setText(fbManager?.mCurrentUser?.email)
-
-    }
-        protected fun initNavigationDrawer() {
+    protected fun initNavigationDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
         mDrawerToggle = SmoothActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name,
                 R.string.app_name)
@@ -64,16 +68,60 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
 
         mNavigationView = findViewById(R.id.navigation_view) as NavigationView
 //        populateNavigationHeaderView(true)
- mNavigationView?.setNavigationItemSelectedListener(this)
+        mNavigationView?.setNavigationItemSelectedListener(this)
 
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
 
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+//            android.R.id.home -> if (mDrawerToggle != null && !isDrawerLocked() && mDrawerToggle!!
+//                            .onOptionsItemSelected(item)) {
+//                        mNavigationView?.getMenu()?.findItem(DrawerItem.RIDES))
+//
+//            }
+//            R.id.menu_call_cc -> {
+//                contactCustomerCare()
+//                return true
+//            }
+        }
+        return super.onOptionsItemSelected(item)
     }
+
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mDrawerToggle?.runWhenIdle(Runnable { onNavigationDrawerItemSelected(item.getItemId()) })
+        } else {
+            onNavigationDrawerItemSelected(item.getItemId())
+        }
+        mDrawerLayout?.closeDrawer(Gravity.LEFT)
+        return false
+    }
+
+    protected fun isDrawerLocked(): Boolean {
+        return mDrawerLayout?.getDrawerLockMode(Gravity.LEFT) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+    }
+
+    protected fun isDrawerOpened(): Boolean? {
+        return mDrawerLayout?.isDrawerOpen(Gravity.LEFT)
+    }
+
+    protected fun closeDrawer() {
+        mDrawerLayout?.closeDrawer(Gravity.LEFT)
+    }
+
+    fun onNavigationDrawerItemSelected(id: Int) {
+
+        when (id) {
+            DrawerItem.SETTINGS -> {
+//                    openHome(MixpanelUtils.SCREEN_DRAWER)
+            }
+        }
+    }
+
     fun showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = ProgressDialog(this)
@@ -90,12 +138,12 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         }
     }
 
-    fun hideKeyboard(view: View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm?.hideSoftInputFromWindow(view.windowToken, 0)
-    }
+//    fun hideKeyboard(view: View) {
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 
-    public override fun onStop() {
+    override fun onStop() {
         super.onStop()
         hideProgressDialog()
     }
@@ -106,7 +154,8 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         startActivity(intent)
     }
 
-    private fun initEmpaE4(){
+
+     fun initEmpaE4() {
         if (ContextCompat.checkSelfPermission
                 (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSION_ACCESS_COARSE_LOCATION)
@@ -153,3 +202,5 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         }
     }
 }
+
+

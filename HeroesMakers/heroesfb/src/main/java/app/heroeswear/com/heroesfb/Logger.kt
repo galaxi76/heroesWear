@@ -9,19 +9,19 @@ class Logger {
         private const val TAG = "Heroes"
 
         private fun generateLogText(text: String): String {
-            var text = text
+            var log = text
             val stackTrace = Thread.currentThread().stackTrace
             if (stackTrace != null && stackTrace.size > 4) {
                 val element = stackTrace[4]
                 val className = element.className
                 val shortClassName = className.substring(className.lastIndexOf(".") + 1)
-                text = "Tread: " + Thread.currentThread().id + " | " +
+                log = "Tread: " + Thread.currentThread().id + " | " +
                         "Class Name: " + shortClassName + " | " +
                         "Method: " + element.methodName + " | " +
                         text
             }
 
-            return text
+            return log
         }
 
         fun d() {

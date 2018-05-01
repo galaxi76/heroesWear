@@ -4,7 +4,7 @@ import android.support.v4.app.NotificationManagerCompat;
 
 public enum NotificationChannelType {
 
-    HEART_RATE("heart_rate_notifications", "Heart Rate Notifications", NotificationManagerCompat.IMPORTANCE_HIGH);
+    HEART_RATE_ALARTS("heart_rate_notifications", "Heart Rate Notifications", NotificationManagerCompat.IMPORTANCE_HIGH);
 
     private String id;
     private String name;

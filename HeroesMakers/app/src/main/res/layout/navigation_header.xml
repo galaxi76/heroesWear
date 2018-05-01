@@ -25,36 +25,15 @@
             android:gravity="center_horizontal"
             android:hint="Name"
             android:maxLines="1"
-            android:textColor="@color/grey_300"
+            android:textColor="@color/p_dark_black"
             android:textSize="20sp"
+            android:layout_margin="12dp"
             tools:text="Android Studio"/>
 
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="34dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:background="@drawable/nav_bar_background_selector"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="6"
-                android:background="#7bbdf2"/>
-        </LinearLayout>
-
-    </FrameLayout>
 
 
 

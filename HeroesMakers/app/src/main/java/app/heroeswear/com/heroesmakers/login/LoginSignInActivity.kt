@@ -16,7 +16,6 @@
 
 package app.heroeswear.com.heroesmakers.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -24,7 +23,10 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+
+import app.heroeswear.com.common.FBCalbacks
 import app.heroeswear.com.heroesfb.FirebaseManager
+import app.heroeswear.com.heroesfb.Logger
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -32,10 +34,11 @@ import com.google.firebase.auth.FirebaseUser
 import app.heroeswear.com.heroesmakers.R
 import app.heroeswear.com.heroesmakers.login.Activities.TriviaActivity
 import app.heroeswear.com.heroesmakers.login.models.User
+import common.AppSettingsProfile
 import common.BaseActivity
 import kotlinx.android.synthetic.main.email_signin_login.*
 
-class LoginSignInActivity : BaseActivity(), View.OnClickListener {
+class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
 
     private var mStatusTextView: TextView? = null
     private var mDetailTextView: TextView? = null
@@ -64,11 +67,11 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
         email_create_account_button.setOnClickListener(this)
         sign_out_button.setOnClickListener(this)
         verify_email_button.setOnClickListener(this)
-        fbManager = FirebaseManager.newInstance()
 
         // [START initialize_auth]
         fbManager?.onCreate()
         // [END initialize_auth]
+
     }
 
     // [START on_start_check_user]
@@ -76,7 +79,9 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = fbManager?.onStart()
-        updateUI(currentUser)
+
+//        updateUI(currentUser)
+        Logger.d("Push token: ${FirebaseManager.newInstance().getPushToken()}")
     }
     // [END on_start_check_user]
 
@@ -90,14 +95,9 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
 
         // [START create_user_with_email]
         // TODO convert to kotlin and add coroutines for hideProgressDialog();
-        currentUser = fbManager?.createAccount(email, password)
+        currentUser = fbManager?.createAccount(email, password,this)
 
-        currentUser.let {
-            mUser = User()
-            mUser.userId = currentUser?.uid
-            mUser.email = email
-        }
-        updateUI(currentUser)
+
         hideProgressDialog()
 
         // [END create_user_with_email]
@@ -111,14 +111,8 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
 
         showProgressDialog()
         // TODO convert to kotlin and add coroutines for hideProgressDialog();
-        currentUser = fbManager?.signInUser(email, password)
-        let {
-            mUser = User()
-            mUser.userId = currentUser?.uid
-            mUser.email = currentUser?.email
-        }
-        updateUI(currentUser)
-        hideProgressDialog()
+        currentUser = fbManager?.signInUser(email, password,this)
+
 
     }
 
@@ -180,16 +174,22 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
     private fun updateUI(user: FirebaseUser?) {
         hideProgressDialog()
         if (user != null) {
-            mStatusTextView!!.text = getString(R.string.emailpassword_status_fmt,
-                    user.email, user.isEmailVerified)
-            mDetailTextView!!.text = getString(R.string.firebase_status_fmt, user.uid)
-
-            email_password_buttons.setVisibility(View.GONE)
-            email_password_fields.setVisibility(View.GONE)
-            signed_in_buttons.setVisibility(View.VISIBLE)
-
-            verify_email_button.setEnabled(!user.isEmailVerified)
-//            openHomePage(mUser)
+//            mStatusTextView!!.text = getString(R.string.emailpassword_status_fmt,
+//                    user.email, user.isEmailVerified)
+//            mDetailTextView!!.text = getString(R.string.firebase_status_fmt, user.uid)
+//
+//            email_password_buttons.setVisibility(View.GONE)
+//            email_password_fields.setVisibility(View.GONE)
+//            signed_in_buttons.setVisibility(View.VISIBLE)
+//
+//            verify_email_button.setEnabled(!user.isEmailVerified)
+            user.let {
+                mUser = User()
+                mUser.userId = user?.uid
+                mUser.email = user?.email
+                openHomePage(mUser)
+            }
+//
         } else {
             mStatusTextView!!.setText(R.string.signed_out)
             mDetailTextView!!.text = null
@@ -201,7 +201,36 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    override fun onCreateAccountCompleted(user: FirebaseUser?) {
+        user.let {
+            mUser = User()
+            mUser.userId = user?.uid
+            mUser.email = user?.email
+        }
+        updateUI(user)
+        hideProgressDialog()
+        AppSettingsProfile.getInstance().setUserID(mUser.userId)
+        AppSettingsProfile.getInstance().isSignedIn = true
 
+        initEmpaE4()
+    }
+
+    override fun onSignInCompleted(user: FirebaseUser?) {
+        if (AppSettingsProfile.getInstance().isSignedIn )
+            user.let {
+                mUser = User()
+                mUser.userId = user?.uid
+                mUser.email = user?.email
+            }
+        initEmpaE4()
+        hideProgressDialog()
+        openHomePage(mUser)
+    }
+
+    override fun onSignOutCompleted() {
+//        finish()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
     override fun onClick(v: View) {
         val i = v.id
         if (i == R.id.email_create_account_button) {

@@ -3,12 +3,16 @@ package app.heroeswear.com.heroesmakers.login.utils;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 import app.heroeswear.com.heroesmakers.R;
+import app.heroeswear.com.heroesmakers.login.Activities.AreYouOkActivity;
 import app.heroeswear.com.heroesmakers.login.enums.NotificationChannelType;
 
 public class NotificationFactory {
@@ -20,16 +24,18 @@ public class NotificationFactory {
                              String body,
                              NotificationChannelType channelType) {
 
-//        Intent intent = new Intent(context, MainActivity.class);
-//        intent.putExtra(EXTRA_RING_REMINDER_TYPE, mRingReminderType.getType());
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context, AreYouOkActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Uri uri = Uri.parse("android.resource://" + context.getApplicationContext().getPackageName() + "/" + R.raw.magic);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelType.getId())
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(body)
-                .setPriority(Notification.PRIORITY_HIGH);
-        //.setContentIntent(pendingIntent);
+                //.setSound(uri)
+                .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.magic))
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent);
         notify(context, NOTIFICATION_ID, builder);
     }
 

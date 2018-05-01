@@ -2,6 +2,7 @@ package common;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.media.MediaExtractor;
 import android.util.Log;
 
 import com.empatica.empalink.ConnectionNotAllowedException;
@@ -12,12 +13,26 @@ import com.empatica.empalink.config.EmpaSensorType;
 import com.empatica.empalink.config.EmpaStatus;
 import com.empatica.empalink.delegate.EmpaDataDelegate;
 import com.empatica.empalink.delegate.EmpaStatusDelegate;
+import app.heroeswear.com.heroesfb.FirebaseManager;
+import app.heroeswear.com.heroesfb.MeasurementData;
+
+import java.security.Timestamp;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatusDelegate {
 
     private static final String EMPATICA_API_KEY = "b1e5dc72e0d64626ba5138285a78480e"; //ADD API KEY
+    private static final long START_DELAY_MS = (1000*60*6);
+    //private static final long START_DELAY_MS = (1000*60);
+    private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
+    //private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
     private EmpaDeviceManager deviceManager = null;
+    private MeasurementClass measure_gsr = new MeasurementClass(60,10);
+    private MeasurementClass measure_heartRate = new MeasurementClass(60,10);
+    private Timer timer = new Timer();
+    private FirebaseManager fbManager;
 
     /**
      * A constructor is required, and must call the super IntentService(String)
@@ -35,6 +50,11 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
     @Override
     protected void onHandleIntent(Intent intent) {
         initEmpaticaDeviceManager();
+
+        fbManager = FirebaseManager.Companion.newInstance();
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new empaTimer(),START_DELAY_MS , EMPA_TIMER_PERIOD_MS);
     }
 
     private void initEmpaticaDeviceManager() {
@@ -139,11 +159,15 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
     @Override
     public void didReceiveGSR(float gsr, double timestamp) {
         Log.e("moshe", timestamp + " gsr" + gsr);
+        measure_gsr.add_mes(gsr,timestamp);
+        Log.e("david", "get_current(): " + measure_gsr.get_current());
     }
 
     @Override
     public void didReceiveIBI(float ibi, double timestamp) {
         Log.e("moshe", timestamp + " ibi" + 60 / ibi);
+        measure_heartRate.add_mes((60 / ibi),timestamp);
+        Log.e("david", "get_current(): " + measure_gsr.get_current());
     }
 
     @Override
@@ -181,5 +205,27 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
 //        });
     }
 
+    class empaTimer extends TimerTask {
 
+        @Override
+        public void run() {
+            long timestamp = System.currentTimeMillis();
+
+            Log.e("david_TIMER","TIMER_TICK");
+            Log.e("david_TIMER","heartrate:" + measure_heartRate.get_current());
+            Log.e("david_TIMER","heartrateAVG:" + measure_heartRate.get_last_samples_avg());
+            Log.e("david_TIMER","gsr:" + measure_gsr.get_current());
+            Log.e("david_TIMER","gsrAVG:" + measure_gsr.get_last_samples_avg());
+            Log.e("david_TIMER","timestamp:" + String.valueOf(timestamp));
+
+            MeasurementData data = new MeasurementData(measure_gsr.get_current(),
+                    measure_gsr.get_last_samples_avg(),
+                    measure_heartRate.get_current(),
+                    measure_heartRate.get_last_samples_avg(),
+                    String.valueOf(timestamp));
+
+            fbManager.addHRMeasurementToken(data);
+        }
+    };
 }
+

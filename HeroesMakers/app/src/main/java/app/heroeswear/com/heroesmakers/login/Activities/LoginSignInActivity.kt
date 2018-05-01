@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package app.heroeswear.com.heroesmakers.login
+package app.heroeswear.com.heroesmakers.login.Activities
 
 import android.os.Bundle
-import android.support.v4.app.NotificationCompatSideChannelService
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -33,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import app.heroeswear.com.heroesmakers.R
-import app.heroeswear.com.heroesmakers.login.Activities.TriviaActivity
 import app.heroeswear.com.heroesmakers.login.models.User
 import common.AppSettingsProfile
 import common.BaseActivity

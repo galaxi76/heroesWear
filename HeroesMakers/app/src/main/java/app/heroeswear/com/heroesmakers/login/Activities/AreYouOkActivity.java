@@ -1,7 +1,6 @@
 package app.heroeswear.com.heroesmakers.login.Activities;
 
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -10,17 +9,13 @@ import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import app.heroeswear.com.heroesfb.Logger;
 import app.heroeswear.com.heroesmakers.R;
 
 public class AreYouOkActivity extends AppCompatActivity {
 
-    private Button btNotOk;
-    private Button btOk;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,27 +23,9 @@ public class AreYouOkActivity extends AppCompatActivity {
 
         //setShowWhenLocked(true);
         //setTurnScreenOn(true);
-
-        btNotOk = (Button) findViewById(R.id.btn_not_ok);
-        btNotOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchNotOkActivity();
-            }
-        });
-        btOk = (Button) findViewById(R.id.bt_ok);
-        btOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moveTaskToBack(true);
-            }
-        });
         playNotificationSound();
     }
-    private void launchNotOkActivity(){
-        Intent intent = new Intent(this, SolutionListActivity.class);
-        startActivity(intent);
-    }
+
     @Override
     public void onAttachedToWindow() {
         //this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
@@ -71,6 +48,4 @@ public class AreYouOkActivity extends AppCompatActivity {
             Logger.Companion.e(e.getMessage());
         }
     }
-
-
 }

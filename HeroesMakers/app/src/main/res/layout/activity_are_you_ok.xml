@@ -15,7 +15,7 @@
         android:textSize="25dp" />
 
     <Button
-        android:id="@+id/btn_not_ok"
+        android:id="@+id/button3"
         android:layout_width="226dp"
         android:layout_height="268dp"
         android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
         android:textSize="30dp" />
 
     <Button
-        android:id="@+id/bt_ok"
+        android:id="@+id/button4"
         android:layout_width="221dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

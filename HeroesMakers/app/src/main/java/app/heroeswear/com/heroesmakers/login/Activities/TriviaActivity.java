@@ -67,6 +67,17 @@ public class TriviaActivity extends AppCompatActivity implements View.OnClickLis
 	}
 
 	@Override
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+
+		if (timer != null)
+			timer.cancel();
+
+		finish();
+	}
+
+	@Override
 	public void onClick(View view)
 	{
 		if (selectedEntryIndex < 0 || selectedEntryIndex >= questionsEntries.size())

@@ -116,7 +116,14 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
 
     private fun signOut() {
         fbManager?.signOut()
-        updateUI(null)
+        //updateUI(null)
+
+        mStatusTextView!!.setText(R.string.signed_out)
+        mDetailTextView!!.text = null
+
+        email_password_buttons.setVisibility(View.VISIBLE)
+        email_password_fields.setVisibility(View.VISIBLE)
+        signed_in_buttons.setVisibility(View.GONE)
     }
 
     private fun sendEmailVerification() {
@@ -169,8 +176,8 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         return valid
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-        hideProgressDialog()
+    /*private fun updateUI(user: FirebaseUser?) {
+
         if (user != null) {
 //            mStatusTextView!!.text = getString(R.string.emailpassword_status_fmt,
 //                    user.email, user.isEmailVerified)
@@ -181,12 +188,7 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
 //            signed_in_buttons.setVisibility(View.VISIBLE)
 //
 //            verify_email_button.setEnabled(!user.isEmailVerified)
-            user.let {
-                mUser = User()
-                mUser.userId = user?.uid
-                mUser.email = user?.email
-                openHomePage(mUser)
-            }
+
 //
         } else {
             mStatusTextView!!.setText(R.string.signed_out)
@@ -196,21 +198,29 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
             email_password_fields.setVisibility(View.VISIBLE)
             signed_in_buttons.setVisibility(View.GONE)
         }
-    }
+    }*/
 
 
     override fun onCreateAccountCompleted(user: FirebaseUser?) {
+        if (user == null)
+        {
+            Toast.makeText(this, "Create account failed", Toast.LENGTH_LONG).show()
+            return
+        }
+
         user.let {
             mUser = User()
             mUser.userId = user?.uid
             mUser.email = user?.email
-        }
-        updateUI(user)
-        hideProgressDialog()
-        AppSettingsProfile.getInstance().setUserID(mUser.userId)
-        AppSettingsProfile.getInstance().isSignedIn = true
 
-        initEmpaE4()
+            hideProgressDialog()
+            AppSettingsProfile.getInstance().setUserID(mUser.userId)
+            AppSettingsProfile.getInstance().isSignedIn = true
+
+            initEmpaE4()
+            openHomePage(mUser)
+            finish()
+        }
     }
 
     override fun onSignInCompleted(user: FirebaseUser?) {
@@ -226,9 +236,10 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
             mUser.userId = user?.uid
             mUser.email = user?.email
 
-            initEmpaE4()
             hideProgressDialog()
+            initEmpaE4()
             openHomePage(mUser)
+            finish()
         }
     }
 
@@ -261,4 +272,5 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
 
         private val TAG = "EmailPassword"
     }
+
 }

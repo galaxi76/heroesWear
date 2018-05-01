@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package app.heroeswear.com.heroesmakers.login
+package app.heroeswear.com.heroesmakers.login.Activities
 
 import android.os.Bundle
-import android.support.v4.app.NotificationCompatSideChannelService
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -33,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import app.heroeswear.com.heroesmakers.R
-import app.heroeswear.com.heroesmakers.login.Activities.TriviaActivity
 import app.heroeswear.com.heroesmakers.login.models.User
 import common.AppSettingsProfile
 import common.BaseActivity
@@ -113,7 +111,6 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         showProgressDialog()
         // TODO convert to kotlin and add coroutines for hideProgressDialog();
         currentUser = fbManager?.signInUser(email, password,this)
-
 
     }
 
@@ -233,6 +230,14 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
             hideProgressDialog()
             openHomePage(mUser)
         }
+    }
+
+    override fun onSignInFailed(user: FirebaseUser?) {
+        hideProgressDialog()
+        if (currentUser == null ){
+            Toast.makeText(this,"please insert correct user name/ password ",Toast.LENGTH_LONG).show()
+        }
+
     }
 
     override fun onSignOutCompleted() {

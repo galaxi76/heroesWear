@@ -3,12 +3,14 @@ package app.heroeswear.com.heroesfb
 import android.content.ContentValues.TAG
 import android.util.Log
 import app.heroeswear.com.common.FBCalbacks
+import app.heroeswear.com.common.model.Contact
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.database.FirebaseDatabase
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Query
 import com.google.firebase.iid.FirebaseInstanceId
 
 /**
@@ -66,7 +68,7 @@ class FirebaseManager() {
                 // If sign in fails, display a message to the user.
                 Logger.e("Error: ${task.exception}")
                 mCurrentUser = null
-                callback.onSignInCompleted(mCurrentUser)
+                callback.onSignInFailed(mCurrentUser)
 
             }
         }
@@ -82,6 +84,23 @@ class FirebaseManager() {
         Logger.d("user push token: ${getPushToken()}")
     }
 
+    fun updateNewContact(contact: Contact){
+        var newPostKey = mDatabase.child("contacts").push().key
+
+        mDatabase.child("contacts").child(getUid()).child(newPostKey).setValue(contact)
+    }
+
+    fun getLastAddedContactInDB(): Query{
+         return  mDatabase.child("contacts").child(getUid()).orderByKey().limitToLast(1)
+
+
+    }
+
+    fun getContactsRefList(): DatabaseReference {
+        return mDatabase.child("contacts").child(getUid())
+
+    }
+
     fun getPushToken(): String {
         return FirebaseInstanceId.getInstance().token ?: ""
     }
@@ -94,8 +113,8 @@ class FirebaseManager() {
         Log.e("DAVID_FIRE_BASE", "uuid:" + getUid());
     }
 
-    fun getUid(): String {
-        return mCurrentUser!!.uid
+    fun getUid(): String? {
+        return mAuth.currentUser?.uid// mCurrentUser!!.uid
     }
 
     fun signOut() {
@@ -110,8 +129,5 @@ class FirebaseManager() {
             return mInstance
         }
 
-//        fun newInstance(): FirebaseManager {
-//            return FirebaseManager()
-//        }
     }
 }

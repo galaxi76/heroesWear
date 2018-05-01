@@ -2,6 +2,7 @@ package common
 
 import android.Manifest
 import android.app.ProgressDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -74,7 +75,12 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
-        return if (id == R.id.action_settings) true else super.onOptionsItemSelected(item)
+        return if (id == R.id.action_call) {
+            phoneDial(baseContext,"911")
+            return true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
 
     }
 
@@ -211,6 +217,20 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
                             .show()
                 }
         }
+    }
+
+    fun phoneDial(context: Context, phone: String?) {
+        if (phone == null) {
+            return
+        }
+        try {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$phone")
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
+        }
+
     }
 }
 

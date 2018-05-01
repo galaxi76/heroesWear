@@ -1,13 +1,11 @@
 package app.heroeswear.com.heroesmakers.login.Activities;
 
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Xml;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import app.heroeswear.com.heroesmakers.R;
-import app.heroeswear.com.heroesmakers.login.trivias.XmlQuestionEntry;
+import app.heroeswear.com.heroesmakers.login.models.XmlQuestionEntry;
 
 public class TriviaActivity extends AppCompatActivity implements View.OnClickListener
 {

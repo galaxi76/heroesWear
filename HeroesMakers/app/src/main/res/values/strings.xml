@@ -19,5 +19,11 @@
     <string name="sign_in">Sign In</string>
     <string name="drawer_item_profile">My Profile</string>
 
+    <string name="question_title">Question title</string>
+    <string name="first_answer">First answer</string>
+    <string name="second_answer">Second answer</string>
+    <string name="third_answer">Third answer</string>
+    <string name="fourth_answer">Fourth answer</string>
+
 
 </resources>

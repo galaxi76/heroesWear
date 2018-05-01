@@ -10,6 +10,8 @@
     <color name="white">#ffffff</color>
     <color name="p_drawer">#b2dfdb</color>
     <color name="drawer_divider">#DDDDDD</color>
+    <color name="success_green">#41BCA0</color>
+    <color name="wrong_red">#FF4081</color>
 
 
 </resources>

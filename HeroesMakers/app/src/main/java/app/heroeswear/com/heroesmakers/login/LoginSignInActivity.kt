@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 import app.heroeswear.com.heroesmakers.R
+import app.heroeswear.com.heroesmakers.login.Activities.TriviaActivity
 import app.heroeswear.com.heroesmakers.login.models.User
 import common.BaseActivity
 import kotlinx.android.synthetic.main.email_signin_login.*

@@ -17,6 +17,7 @@
 package app.heroeswear.com.heroesmakers.login
 
 import android.os.Bundle
+import android.support.v4.app.NotificationCompatSideChannelService
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -216,15 +217,22 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
     }
 
     override fun onSignInCompleted(user: FirebaseUser?) {
-        if (AppSettingsProfile.getInstance().isSignedIn )
-            user.let {
-                mUser = User()
-                mUser.userId = user?.uid
-                mUser.email = user?.email
-            }
-        initEmpaE4()
-        hideProgressDialog()
-        openHomePage(mUser)
+
+        if (user == null)
+        {
+            Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        user.let {
+            mUser = User()
+            mUser.userId = user?.uid
+            mUser.email = user?.email
+
+            initEmpaE4()
+            hideProgressDialog()
+            openHomePage(mUser)
+        }
     }
 
     override fun onSignOutCompleted() {

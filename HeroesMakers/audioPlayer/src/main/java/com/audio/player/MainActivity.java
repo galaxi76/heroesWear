@@ -23,7 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 
-import com.audio.player.classes.MyApplication;
+import com.audio.player.classes.Constants;
 import com.audio.player.media.MediaPlaybackService;
 import com.audio.player.media.PlaybackControlsFragment;
 
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		registerReceiver(notificationSwipedAwayReceiver, new IntentFilter(Intent.ACTION_MEDIA_BUTTON));
 
 		Intent intent      = new Intent(this, MediaPlaybackService.class);
-		String packageName = MyApplication.getContext().getPackageName();
+		String packageName = Constants.PACKAGE_NAME;
 		intent.putExtra(packageName + ".AUDIO_TITLE", "Audio title");
 		intent.putExtra(packageName + ".AUDIO_URL", "Audio url");
 		startService(intent);
@@ -251,47 +251,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	{
 		MediaControllerCompat mediaController = null;
 
-		switch (v.getId())
+		if (v.getId() == R.id.fab)
 		{
-			case R.id.fab:
-				playButtonClicked();
-				break;
-			case R.id.fragment_controller_rewind:
-				mediaController = MediaControllerCompat.getMediaController(this);
+			playButtonClicked();
+		}
+		else if (v.getId() == R.id.fragment_controller_rewind)
+		{
+			mediaController = MediaControllerCompat.getMediaController(this);
 
-				if (mediaController == null)
-					return;
+			if (mediaController == null)
+				return;
 
-				mediaController.getTransportControls().rewind();
-				break;
-			case R.id.fragment_controller_play_pause:
-				mediaController = MediaControllerCompat.getMediaController(this);
+			mediaController.getTransportControls().rewind();
+		}
+		else if (v.getId() == R.id.fragment_controller_play_pause)
+		{
+			mediaController = MediaControllerCompat.getMediaController(this);
 
-				if (mediaController == null)
-					return;
+			if (mediaController == null)
+				return;
 
-				PlaybackStateCompat 	playbackState 	= mediaController.getPlaybackState();
-				int 					currentState	= PlaybackStateCompat.STATE_NONE;
+			PlaybackStateCompat 	playbackState 	= mediaController.getPlaybackState();
+			int 					currentState	= PlaybackStateCompat.STATE_NONE;
 
-				if (playbackState != null)
-					currentState = playbackState.getState();
+			if (playbackState != null)
+				currentState = playbackState.getState();
 
-				if (currentState == PlaybackStateCompat.STATE_PLAYING || currentState == PlaybackStateCompat.STATE_BUFFERING || currentState == PlaybackStateCompat.STATE_CONNECTING)
-				{	mediaController.getTransportControls().pause();	}
-				else //if (currentState == PlaybackStateCompat.STATE_PAUSED || currentState == PlaybackStateCompat.STATE_STOPPED || currentState == PlaybackStateCompat.STATE_NONE)
-					mediaController.getTransportControls().play();
+			if (currentState == PlaybackStateCompat.STATE_PLAYING || currentState == PlaybackStateCompat.STATE_BUFFERING || currentState == PlaybackStateCompat.STATE_CONNECTING)
+			{	mediaController.getTransportControls().pause();	}
+			else //if (currentState == PlaybackStateCompat.STATE_PAUSED || currentState == PlaybackStateCompat.STATE_STOPPED || currentState == PlaybackStateCompat.STATE_NONE)
+				mediaController.getTransportControls().play();
+		}
+		else if (v.getId() == R.id.fragment_controller_fast_forward)
+		{
+			mediaController = MediaControllerCompat.getMediaController(this);
 
-				break;
-			case R.id.fragment_controller_fast_forward:
-				mediaController = MediaControllerCompat.getMediaController(this);
+			if (mediaController == null)
+				return;
 
-				if (mediaController == null)
-					return;
-
-				mediaController.getTransportControls().fastForward();
-				break;
-			default:
-				break;
+			mediaController.getTransportControls().fastForward();
 		}
 	}
 }

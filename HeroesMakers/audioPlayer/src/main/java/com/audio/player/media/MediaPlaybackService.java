@@ -34,7 +34,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.audio.player.R;
-import com.audio.player.classes.MyApplication;
+import com.audio.player.classes.Constants;
 
 import java.io.IOException;
 import java.util.List;
@@ -125,7 +125,7 @@ public class MediaPlaybackService extends MediaBrowserServiceCompat
 			return super.onStartCommand(intent, flags, startId);
 		}
 
-		String packageName 	= MyApplication.getContext().getPackageName();
+		String packageName 	= Constants.PACKAGE_NAME;
 		audioTitle 			= intent.getStringExtra(packageName + ".AUDIO_TITLE");
 		audioUrl 			= intent.getStringExtra(packageName + ".AUDIO_URL");
 		albumArt 			= BitmapFactory.decodeResource(getResources(), R.drawable.pigeon_icon);

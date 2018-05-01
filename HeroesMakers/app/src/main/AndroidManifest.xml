@@ -56,17 +56,10 @@
             </intent-filter>
         </service>
 
-<<<<<<< HEAD
-        <activity android:name=".login.Activities.TriviaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity
+            android:name=".login.Activities.TriviaActivity">
         </activity>
-=======
 
->>>>>>> 5a4627fe1162bc982d48f61ac05e32f52022f1c1
     </application>
 
 </manifest>

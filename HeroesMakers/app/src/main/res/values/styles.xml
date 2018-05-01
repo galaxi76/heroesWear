@@ -35,7 +35,7 @@
 
     <style name="text_c3_14" parent="android:Widget.TextView">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/p_dark_black</item>
         <item name="android:textSize">@dimen/title_bottom_margin</item>
     </style>
 

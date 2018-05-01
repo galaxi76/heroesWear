@@ -67,18 +67,7 @@ public class EmergencyContactsActivity extends BaseActivity {
     }
 
 
-    public static void phoneDial(Context context, String phone) {
-        if (phone == null) {
-            return;
-        }
-        try {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + phone));
-            context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
     // TODO return emergency mContacts from server or shard preferences
     private ArrayList<String> getContactsNames(ArrayList<Contact> contacts){
         if (contacts != null ) {

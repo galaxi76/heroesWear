@@ -13,6 +13,7 @@ public class MeasurementClass {
     private float current_samples = 10;
 
     private List<Float> list = new ArrayList<Float>();
+    private List<Long> timeList = new ArrayList<Long>();
 
 
     public MeasurementClass(double mean_interval, int c_samps)
@@ -33,6 +34,7 @@ public class MeasurementClass {
         index_minor++;
         if (( ts - base_ts ) > samples_length ){
             list.add ( m_sum/index_minor);
+            timeList.add(System.currentTimeMillis());
             index_minor = 0;
             m_sum = 0;
         }
@@ -52,6 +54,22 @@ public class MeasurementClass {
 
     public String get_last_samples_avg ()
     {
+        int index = 0;
+
+        long currentTime = System.currentTimeMillis();
+
+        for (index = 0; index < timeList.size(); index++) {
+            long t = timeList.get(index);
+
+            if (currentTime - t < 30000) {
+                break;
+            } else {
+                list.remove(index);
+                timeList.remove(index);
+                index--;
+            }
+        }
+
         int counter = 0;
         float sum = 0;
 

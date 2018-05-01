@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set>
+    <record>
+        <QuestionId>1</QuestionId>
+        <QuestionText>What is 'Gimel' Yafit's first name?</QuestionText>
+        <FirstAnswer>Galit</FirstAnswer>
+        <SecondAnswer>Gila</SecondAnswer>
+        <ThirdAnswer>Yafit</ThirdAnswer>
+        <FourthAnswer>Geula</FourthAnswer>
+        <CorrectAnswer>2</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>2</QuestionId>
+        <QuestionText>Who was the fourth IDF's Chief of Staff?</QuestionText>
+        <FirstAnswer>Yigael Yadin</FirstAnswer>
+        <SecondAnswer>Mordechai Maklef</SecondAnswer>
+        <ThirdAnswer>Moshe Dayan</ThirdAnswer>
+        <FourthAnswer>Ya'akov Dori</FourthAnswer>
+        <CorrectAnswer>2</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>3</QuestionId>
+        <QuestionText>Who was the second season's winner of Israel's Big Brother show?</QuestionText>
+        <FirstAnswer>Eliraz sadeh</FirstAnswer>
+        <SecondAnswer>Kuti sabag</SecondAnswer>
+        <ThirdAnswer>Shifra Korenfeld</ThirdAnswer>
+        <FourthAnswer>Jackie Menachem</FourthAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>4</QuestionId>
+        <QuestionText>How many times did Benjamin Netanyahu got married?</QuestionText>
+        <FirstAnswer>1</FirstAnswer>
+        <SecondAnswer>3</SecondAnswer>
+        <ThirdAnswer>4</ThirdAnswer>
+        <FourthAnswer>2</FourthAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>5</QuestionId>
+        <QuestionText>On Friends, what was Chandler's fake address in Yemen?</QuestionText>
+        <FirstAnswer>10 HaGat st.</FirstAnswer>
+        <SecondAnswer>8 Yemeni st.</SecondAnswer>
+        <ThirdAnswer>Yemen alley</ThirdAnswer>
+        <FourthAnswer>15 Yemen road</FourthAnswer>
+        <CorrectAnswer>3</CorrectAnswer>
+    </record>
+
+</data-set>

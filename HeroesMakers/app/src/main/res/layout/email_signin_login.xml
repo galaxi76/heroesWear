@@ -27,13 +27,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_bottom_margin"
-            android:text="@string/emailpassword_title_text"
+            android:text="Hello Hero!!"
             android:theme="@style/ThemeOverlay.MyTitleText"/>
 
         <TextView
             android:id="@+id/status"
             style="@style/ThemeOverlay.MyTextDetail"
-            android:text="@string/signed_out"/>
+            android:text="Please Insert your credentials"/>
 
         <TextView
             android:id="@+id/detail"

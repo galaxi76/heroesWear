@@ -114,7 +114,6 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         // TODO convert to kotlin and add coroutines for hideProgressDialog();
         currentUser = fbManager?.signInUser(email, password,this)
 
-
     }
 
     private fun signOut() {
@@ -233,6 +232,14 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
             hideProgressDialog()
             openHomePage(mUser)
         }
+    }
+
+    override fun onSignInFailed(user: FirebaseUser?) {
+        hideProgressDialog()
+        if (currentUser == null ){
+            Toast.makeText(this,"please insert correct user name/ password ",Toast.LENGTH_LONG).show()
+        }
+
     }
 
     override fun onSignOutCompleted() {

@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/audioPlayer/audioPlayer.iml" filepath="$PROJECT_DIR$/audioPlayer/audioPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/heroesfb/heroesfb.iml" filepath="$PROJECT_DIR$/heroesfb/heroesfb.iml" />
     </modules>
   </component>

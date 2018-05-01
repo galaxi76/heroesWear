@@ -112,6 +112,7 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         mDrawerToggle?.syncState()
 
         mNavigationView = findViewById<View>(R.id.navigation_view) as NavigationView
+        mNavigationView?.getHeaderView(0)?.findViewById<TextView>(R.id.lbl_name)?.text = fbManager?.mCurrentUser?.email
         mNavigationView?.setNavigationItemSelectedListener(this)
     }
 

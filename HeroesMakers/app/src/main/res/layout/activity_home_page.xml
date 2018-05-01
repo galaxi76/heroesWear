@@ -36,9 +36,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="@color/p_Light"
-        app:headerLayout="@layout/navigation_header"
+        app:headerLayout="@layout/nav_header_home"
+        android:fitsSystemWindows="true"
         app:itemTextAppearance="@style/text_c3_14"
-        app:theme="@style/DrawerTheme" />
+        app:menu="@menu/activity_home_drawer"/>
 
 <!--</FrameLayout>-->
 

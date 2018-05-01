@@ -36,6 +36,7 @@
 
         <activity
             android:name=".login.Activities.AreYouOkActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"

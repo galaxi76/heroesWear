@@ -26,16 +26,17 @@ public class NotificationFactory {
 
         Intent intent = new Intent(context, AreYouOkActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Uri uri = Uri.parse("android.resource://" + context.getApplicationContext().getPackageName() + "/" + R.raw.magic);
+        Uri uri = Uri.parse("android.resource://" + context.getApplicationContext().getPackageName() + "/" + R.raw.push_notification_sound);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelType.getId())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(body)
-                //.setSound(uri)
-                .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.magic))
+                .setSound(uri)
+                .setVibrate(new long[]{0, 500, 1000})
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
+                //.setDefaults(Notification.DEFAULT_ALL);
         notify(context, NOTIFICATION_ID, builder);
     }
 

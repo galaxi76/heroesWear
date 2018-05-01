@@ -14,11 +14,15 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -42,7 +46,7 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     protected var fbManager: FirebaseManager? = null
     private var mDrawerLayout: DrawerLayout? = null
     private var mNavigationView: NavigationView? = null
-    private var mDrawerToggle: SmoothActionBarDrawerToggle? = null
+    private var mDrawerToggle: ActionBarDrawerToggle? = null
 
     private val REQUEST_ENABLE_BT = 1
     private val REQUEST_PERMISSION_ACCESS_COARSE_LOCATION = 1
@@ -53,53 +57,65 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         fbManager = FirebaseManager.newInstance()
     }
 
+    override fun onBackPressed() {
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
 
-    protected fun populateNavigationHeaderView(isInit: Boolean) {
-        val headerView = mNavigationView?.getHeaderView(0)
-        (headerView?.findViewById(R.id.lbl_name) as TextView).setText(fbManager?.mCurrentUser?.email)
-        initEmpaE4()
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
-    protected fun initNavigationDrawer() {
-        mDrawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
-        mDrawerToggle = SmoothActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name,
-                R.string.app_name)
-        mDrawerLayout?.setDrawerListener(mDrawerToggle)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
 
-        mNavigationView = findViewById(R.id.navigation_view) as NavigationView
-//        populateNavigationHeaderView(true)
-        mNavigationView?.setNavigationItemSelectedListener(this)
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-//            android.R.id.home -> if (mDrawerToggle != null && !isDrawerLocked() && mDrawerToggle!!
-//                            .onOptionsItemSelected(item)) {
-//                        mNavigationView?.getMenu()?.findItem(DrawerItem.RIDES))
-//
-//            }
-//            R.id.menu_call_cc -> {
-//                contactCustomerCare()
-//                return true
-//            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+        val id = item.itemId
 
+        return if (id == R.id.action_settings) true else super.onOptionsItemSelected(item)
+
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mDrawerToggle?.runWhenIdle(Runnable { onNavigationDrawerItemSelected(item.getItemId()) })
-        } else {
-            onNavigationDrawerItemSelected(item.getItemId())
+        val id = item.itemId
+
+        if (id == R.id.nav_favorites) {
+
+        } else if (id == R.id.nav_messages) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_settings) {
+
         }
-        mDrawerLayout?.closeDrawer(Gravity.LEFT)
-        return false
+
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        drawer.closeDrawer(GravityCompat.START)
+
+        return true
     }
+
+    fun initMenues() {
+        val toolbar = findViewById(R.id.home_toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        if (mDrawerLayout == null){
+            mDrawerLayout = findViewById(R.id.drawer_layout)
+        }
+        if (mDrawerToggle == null){
+            mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            mDrawerLayout?.addDrawerListener(mDrawerToggle!!)
+        }
+        mDrawerToggle?.syncState()
+
+        mNavigationView = findViewById<View>(R.id.navigation_view) as NavigationView
+        mNavigationView?.getHeaderView(0)?.findViewById<TextView>(R.id.lbl_name)?.text = fbManager?.mCurrentUser?.email
+        mNavigationView?.setNavigationItemSelectedListener(this)
+    }
+
 
     protected fun isDrawerLocked(): Boolean {
         return mDrawerLayout?.getDrawerLockMode(Gravity.LEFT) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED
@@ -113,14 +129,6 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
         mDrawerLayout?.closeDrawer(Gravity.LEFT)
     }
 
-    fun onNavigationDrawerItemSelected(id: Int) {
-
-        when (id) {
-            DrawerItem.SETTINGS -> {
-//                    openHome(MixpanelUtils.SCREEN_DRAWER)
-            }
-        }
-    }
 
     fun showProgressDialog() {
         if (mProgressDialog == null) {

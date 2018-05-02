@@ -43,10 +43,10 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     @VisibleForTesting
     var mProgressDialog: ProgressDialog? = null
     var fbManager: FirebaseManager? = null
-    private var mDrawerLayout: DrawerLayout? = null
-    private var mNavigationView: NavigationView? = null
-    private var mDrawerToggle: ActionBarDrawerToggle? = null
-
+    protected var mDrawerLayout: DrawerLayout? = null
+    protected var mNavigationView: NavigationView? = null
+    protected var mDrawerToggle: ActionBarDrawerToggle? = null
+    protected var toolbar: Toolbar? = null
     private val REQUEST_ENABLE_BT = 1
     private val REQUEST_PERMISSION_ACCESS_COARSE_LOCATION = 1
 
@@ -57,13 +57,16 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     }
 
     override fun onBackPressed() {
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+        mDrawerLayout?.let {
+            if (mDrawerLayout!!.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout?.closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
+            }
+            return
         }
+          super.onBackPressed()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,8 +108,10 @@ open class BaseActivity : AppCompatActivity() ,  NavigationView.OnNavigationItem
     }
 
     fun initMenues() {
-        val toolbar = findViewById(R.id.home_toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        if (toolbar == null ) {
+            toolbar = findViewById(R.id.home_toolbar) as Toolbar
+            setSupportActionBar(toolbar)
+        }
         if (mDrawerLayout == null){
             mDrawerLayout = findViewById(R.id.drawer_layout)
         }

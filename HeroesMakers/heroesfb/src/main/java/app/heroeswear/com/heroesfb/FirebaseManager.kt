@@ -80,6 +80,9 @@ class FirebaseManager() {
     }
 
     fun updatePushToken() {
+        if(getUid() == null)
+            return
+
         mDatabase.child("users").child(getUid()).child("token").setValue(getPushToken())
         Logger.d("user push token: ${getPushToken()}")
     }
@@ -101,7 +104,7 @@ class FirebaseManager() {
 
     }
 
-    fun getPushToken(): String {
+    fun getPushToken(): String? {
         return FirebaseInstanceId.getInstance().token ?: ""
     }
 

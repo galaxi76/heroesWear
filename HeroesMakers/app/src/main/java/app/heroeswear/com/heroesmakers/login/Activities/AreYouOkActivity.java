@@ -14,8 +14,9 @@ import android.widget.Button;
 
 import app.heroeswear.com.heroesfb.Logger;
 import app.heroeswear.com.heroesmakers.R;
+import common.BaseActivity;
 
-public class AreYouOkActivity extends AppCompatActivity {
+public class AreYouOkActivity extends BaseActivity {
 
     private Button btn_notOk;
     private Button btn_Ok;
@@ -44,6 +45,7 @@ public class AreYouOkActivity extends AppCompatActivity {
     private void launchActivity(){
         Intent intent = new Intent(AreYouOkActivity.this,SolutionListActivity.class);
         startActivity(intent);
+        finish();
     }
     @Override
     public void onAttachedToWindow() {

@@ -31,11 +31,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/okay_button"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -97,7 +97,6 @@
         android:layout_gravity="left"
         android:background="@color/white"
         android:fitsSystemWindows="true"
-        android:visibility="gone"
         app:headerLayout="@layout/nav_header_home"
         app:itemTextAppearance="@style/text_c3_14"
         app:menu="@menu/activity_home_drawer"/>

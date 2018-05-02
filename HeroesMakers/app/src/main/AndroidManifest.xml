@@ -76,6 +76,27 @@
             android:name=".login.Activities.TriviaActivity">
         </activity>
 
+        <activity
+            android:name=".login.Activities.AudioPlayerActivity">
+        </activity>
+
+        <!-- Media player background service -->
+        <service
+            android:name="app.heroeswear.com.heroesmakers.login.media.MediaPlaybackService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </service>
+
+        <!--Required on pre-Lollipop (versions <5) -->
+        <receiver android:name="android.support.v4.media.session.MediaButtonReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.audio.player.media;
+package app.heroeswear.com.heroesmakers.login.media;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.audio.player.R;
-
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import app.heroeswear.com.heroesmakers.R;
 
 public class PlaybackControlsFragment extends Fragment
 {

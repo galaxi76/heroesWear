@@ -1,4 +1,4 @@
-package com.audio.player;
+package app.heroeswear.com.heroesmakers.login.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaMetadataCompat;
@@ -16,18 +15,18 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 
-import com.audio.player.classes.Constants;
-import com.audio.player.media.MediaPlaybackService;
-import com.audio.player.media.PlaybackControlsFragment;
+import app.heroeswear.com.heroesmakers.R;
+import app.heroeswear.com.heroesmakers.login.application.App;
+import app.heroeswear.com.heroesmakers.login.media.MediaPlaybackService;
+import app.heroeswear.com.heroesmakers.login.media.PlaybackControlsFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener
+public class AudioPlayerActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener
 {
 	private CardView                 cardView         = null;
 	private PlaybackControlsFragment controlsFragment = null;
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 			try
 			{
-				mediaController = new MediaControllerCompat(MainActivity.this, token);
+				mediaController = new MediaControllerCompat(AudioPlayerActivity.this, token);
 			}
 			catch (RemoteException e)
 			{
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				return;
 			}
 
-			MediaControllerCompat.setMediaController(MainActivity.this, mediaController);
+			MediaControllerCompat.setMediaController(AudioPlayerActivity.this, mediaController);
 
 			// Display the initial state
 			//MediaMetadataCompat	metadata 	= mediaController.getMetadata();
@@ -111,16 +110,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+		setContentView(R.layout.activity_audio_player);
 
-		cardView			= (CardView) findViewById(R.id.controls_container);
+		cardView		= (CardView) findViewById(R.id.controls_container);
+		mediaBrowser	= new MediaBrowserCompat(this, new ComponentName(this, MediaPlaybackService.class), connectionCallback, null); //optional Bundle
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(this);
-
-		mediaBrowser = new MediaBrowserCompat(this, new ComponentName(this, MediaPlaybackService.class), connectionCallback, null); //optional Bundle
+		playButtonClicked();
 	}
 
 	@Override
@@ -131,37 +126,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
-		{
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
 	protected void onStop()
 	{
 		super.onStop();
 
-		if (MediaControllerCompat.getMediaController(MainActivity.this) != null)
-			MediaControllerCompat.getMediaController(MainActivity.this).unregisterCallback(controllerCallback);
+		if (MediaControllerCompat.getMediaController(AudioPlayerActivity.this) != null)
+			MediaControllerCompat.getMediaController(AudioPlayerActivity.this).unregisterCallback(controllerCallback);
 
 		mediaBrowser.disconnect();
 	}
@@ -188,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			registerReceiver(notificationSwipedAwayReceiver, new IntentFilter(Intent.ACTION_MEDIA_BUTTON));
 
 			Intent intent 		= new Intent(this, MediaPlaybackService.class);
-			String packageName 	= MyApplication.getContext().getPackageName();
+			String packageName 	= App.getContext().getPackageName();
 			intent.putExtra(packageName + ".AUDIO_TITLE", entry.title);
 			intent.putExtra(packageName + ".AUDIO_URL", entry.enclosure);
 			startService(intent);
@@ -202,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		registerReceiver(notificationSwipedAwayReceiver, new IntentFilter(Intent.ACTION_MEDIA_BUTTON));
 
 		Intent intent      = new Intent(this, MediaPlaybackService.class);
-		String packageName = Constants.PACKAGE_NAME;
+		String packageName 	= App.getContext().getPackageName();
 		intent.putExtra(packageName + ".AUDIO_TITLE", "Audio title");
 		intent.putExtra(packageName + ".AUDIO_URL", "Audio url");
 		startService(intent);
@@ -251,11 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	{
 		MediaControllerCompat mediaController = null;
 
-		if (v.getId() == R.id.fab)
-		{
-			playButtonClicked();
-		}
-		else if (v.getId() == R.id.fragment_controller_rewind)
+		if (v.getId() == R.id.fragment_controller_rewind)
 		{
 			mediaController = MediaControllerCompat.getMediaController(this);
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.media.MediaBrowserCompat;
@@ -20,6 +21,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.io.File;
 
 import app.heroeswear.com.heroesmakers.R;
 import app.heroeswear.com.heroesmakers.login.application.App;
@@ -28,8 +35,9 @@ import app.heroeswear.com.heroesmakers.login.media.PlaybackControlsFragment;
 
 public class AudioPlayerActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener
 {
-	private CardView                 cardView         = null;
-	private PlaybackControlsFragment controlsFragment = null;
+	private TextView					startPlayingButton 	= null;
+	private CardView                 	cardView        	= null;
+	private PlaybackControlsFragment 	controlsFragment 	= null;
 
 	/* Media */
 	private MediaBrowserCompat 						mediaBrowser 		= null;
@@ -112,10 +120,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_audio_player);
 
+		startPlayingButton = (TextView) findViewById(R.id.player_start_btn);
 		cardView		= (CardView) findViewById(R.id.controls_container);
 		mediaBrowser	= new MediaBrowserCompat(this, new ComponentName(this, MediaPlaybackService.class), connectionCallback, null); //optional Bundle
 
-		playButtonClicked();
+		startPlayingButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -221,7 +230,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 	{
 		MediaControllerCompat mediaController = null;
 
-		if (v.getId() == R.id.fragment_controller_rewind)
+		if (v.getId() == R.id.player_start_btn)
+		{
+			playButtonClicked();
+		}
+		else if (v.getId() == R.id.fragment_controller_rewind)
 		{
 			mediaController = MediaControllerCompat.getMediaController(this);
 
@@ -257,5 +270,16 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 
 			mediaController.getTransportControls().fastForward();
 		}
+	}
+
+	private void getFiles()
+	{
+		String path      = Environment.getExternalStorageDirectory().toString() + "/Recordings";
+		File   directory = new File(path);
+		File[] files     = directory.listFiles();
+
+		for (int i = 0; i < files.length; i++)
+			Toast.makeText(this, files[i].getName(), Toast.LENGTH_SHORT).show();
+
 	}
 }

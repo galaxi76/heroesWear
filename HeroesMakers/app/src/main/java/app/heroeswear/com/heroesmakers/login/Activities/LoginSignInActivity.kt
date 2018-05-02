@@ -56,6 +56,9 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.email_signin_login)
 
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        startActivity(intent)
+
         // Views
         mStatusTextView = findViewById(R.id.status)
         mDetailTextView = findViewById(R.id.detail)

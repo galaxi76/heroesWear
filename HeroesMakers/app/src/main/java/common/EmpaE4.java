@@ -127,52 +127,52 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
     @Override
     public void didUpdateStatus(EmpaStatus status) {
         // The device manager is ready for use
-        Log.e("moshe", "status is " + status);
+        Log.e("EmpaE4", "status is " + status);
         if (status == EmpaStatus.READY) {
             // Start scanning
             deviceManager.startScanning();
-            Log.e("moshe", "starting to scan for wrist bands");
+            Log.e("EmpaE4", "starting to scan for wrist bands");
 
         } else if (status == EmpaStatus.CONNECTED) {
-            Log.e("moshe", "connected to wrist band");
+            Log.e("EmpaE4", "connected to wrist band");
 
         } else if (status == EmpaStatus.DISCONNECTED) {
-            Log.e("moshe", "disconnected from wrist band");
+            Log.e("EmpaE4", "disconnected from wrist band");
         }
     }
 
     @Override
     public void didReceiveAcceleration(int x, int y, int z, double timestamp) {
-        Log.e("moshe",   timestamp + " acc " + x + " " + y + " " + z);
+        Log.e("EmpaE4",   timestamp + " acc " + x + " " + y + " " + z);
     }
 
     @Override
     public void didReceiveBVP(float bvp, double timestamp) {
-        Log.e("moshe", timestamp + " bvp " + bvp);
+        Log.e("EmpaE4", timestamp + " bvp " + bvp);
     }
 
     @Override
     public void didReceiveBatteryLevel(float battery, double timestamp) {
-        Log.e("moshe", timestamp + " battery " + String.format("%.0f %%", battery * 100));
+        Log.e("EmpaE4", timestamp + " battery " + String.format("%.0f %%", battery * 100));
     }
 
     @Override
     public void didReceiveGSR(float gsr, double timestamp) {
-        Log.e("moshe", timestamp + " gsr" + gsr);
+        Log.e("EmpaE4", timestamp + " gsr" + gsr);
         measure_gsr.add_mes(gsr,timestamp);
-        Log.e("david", "get_current(): " + measure_gsr.get_current());
+        Log.e("EmpaE4", "get_current(): " + measure_gsr.get_current());
     }
 
     @Override
     public void didReceiveIBI(float ibi, double timestamp) {
-        Log.e("moshe", timestamp + " ibi" + 60 / ibi);
+        Log.e("EmpaE4", timestamp + " ibi" + 60 / ibi);
         measure_heartRate.add_mes((60 / ibi),timestamp);
-        Log.e("david", "get_current(): " + measure_gsr.get_current());
+        Log.e("EmpaE4", "get_current(): " + measure_gsr.get_current());
     }
 
     @Override
     public void didReceiveTemperature(float temp, double timestamp) {
-        Log.e("moshe", timestamp + " temp " + temp);
+        Log.e("EmpaE4", timestamp + " temp " + temp);
     }
 
     @Override
@@ -209,14 +209,13 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
 
         @Override
         public void run() {
-            long timestamp = System.currentTimeMillis();
+            long timestamp = ( System.currentTimeMillis() / 1000 ); // timestamp in seconds
 
-            Log.e("david_TIMER","TIMER_TICK");
-            Log.e("david_TIMER","heartrate:" + measure_heartRate.get_current());
-            Log.e("david_TIMER","heartrateAVG:" + measure_heartRate.get_last_samples_avg());
-            Log.e("david_TIMER","gsr:" + measure_gsr.get_current());
-            Log.e("david_TIMER","gsrAVG:" + measure_gsr.get_last_samples_avg());
-            Log.e("david_TIMER","timestamp:" + String.valueOf(timestamp));
+            Log.e("EmpaE4_TIMER","heartrate:" + measure_heartRate.get_current());
+            Log.e("EmpaE4_TIMER","heartrateAVG:" + measure_heartRate.get_last_samples_avg());
+            Log.e("EmpaE4_TIMER","gsr:" + measure_gsr.get_current());
+            Log.e("EmpaE4_TIMER","gsrAVG:" + measure_gsr.get_last_samples_avg());
+            Log.e("EmpaE4_TIMER","timestamp:" + String.valueOf(timestamp));
 
             MeasurementData data = new MeasurementData(measure_gsr.get_current(),
                     measure_gsr.get_last_samples_avg(),

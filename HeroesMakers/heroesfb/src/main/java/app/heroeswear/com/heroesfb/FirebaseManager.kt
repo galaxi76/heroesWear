@@ -109,8 +109,8 @@ class FirebaseManager() {
         var newPostKey = mDatabase.child("measurements").push().key;
         mDatabase.child("measurements").child(getUid()).child(newPostKey).setValue(data
         )
-        Log.e("DAVID_FIRE_BASE", "key:" + newPostKey);
-        Log.e("DAVID_FIRE_BASE", "uuid:" + getUid());
+        Log.e("EmpaE4_FIREBASE", "key:" + newPostKey);
+        Log.e("EmpaE4_FIREBASE", "uuid:" + getUid());
     }
 
     fun getUid(): String? {

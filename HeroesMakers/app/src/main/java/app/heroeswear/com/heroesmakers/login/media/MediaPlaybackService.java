@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -181,7 +182,7 @@ public class MediaPlaybackService extends MediaBrowserServiceCompat
 		try
 		{
 			//player.setDataSource(audioUrl);
-			AssetFileDescriptor afd = getAssets().openFd("myFile.mp3");
+			AssetFileDescriptor afd = getAssets().openFd("myFile.mp3"); //loadSelectedName(this));
 			player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
 		}
 		catch (IOException e)
@@ -508,6 +509,33 @@ public class MediaPlaybackService extends MediaBrowserServiceCompat
 		channel.setShowBadge(false);
 		channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 		notificationManager.createNotificationChannel(channel);
+	}
+
+	public static synchronized String loadSelectedName(final Context ctx)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		return loadStringFromSharedPreferences(ctx, "SELECTED_NAME");
+	}
+
+	private static String loadStringFromSharedPreferences(final Context ctx, final String name)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		if (name == null || name.isEmpty())
+			throw new RuntimeException("String cannot be null or empty");
+
+		return getSharedPreferencesContent(ctx).getString(name, null);
+	}
+
+	private static SharedPreferences getSharedPreferencesContent(final Context ctx)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		return ctx.getSharedPreferences("HEROES_PREF", Context.MODE_PRIVATE);
 	}
 
 }

@@ -32,6 +32,29 @@
         tools:layout_editor_absoluteY="206dp"
         android:layout_margin="10dp"/>
 
+   <!-- <TextView
+        android:id="@+id/recordings_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:text="Recordings list"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/recordings_spinner"
+        android:layout_alignBottom="@+id/recordings_spinner"/>-->
+
+    <Spinner
+        android:id="@+id/recordings_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:layout_gravity="fill"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/controls_container"
         android:layout_width="match_parent"

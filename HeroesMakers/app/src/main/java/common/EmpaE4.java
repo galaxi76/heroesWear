@@ -24,13 +24,15 @@ import java.util.TimerTask;
 public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatusDelegate {
 
     private static final String EMPATICA_API_KEY = "b1e5dc72e0d64626ba5138285a78480e"; //ADD API KEY
-    private static final long START_DELAY_MS = (1000*60);
+    private static final long START_DELAY_MS = (1000*2);
     //private static final long START_DELAY_MS = (1000*60);
-    private static final long EMPA_TIMER_PERIOD_MS = (1000*15);
-    //private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
+    private static final long EMPA_TIMER_PERIOD_MS = (1000*2);
+    //private static final long EMPA_TIMER_PERIOD_MS = (1000*15);
     private EmpaDeviceManager deviceManager = null;
     private MeasurementClass measure_gsr = new MeasurementClass(60,10);
     private MeasurementClass measure_heartRate = new MeasurementClass(60,10);
+    private MeasurementClass measure_pulse = new MeasurementClass(60,10);
+    private double prev_ibi_ts=0;
     private Timer timer = new Timer();
     private FirebaseManager fbManager;
     EmpaStatus device_status;
@@ -151,6 +153,7 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
 
     @Override
     public void didReceiveBVP(float bvp, double timestamp) {
+        //measure_pulse.add_mes_bvp(bvp,timestamp);
         Log.e("EmpaE4", timestamp + " bvp " + bvp);
     }
 
@@ -168,9 +171,10 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
 
     @Override
     public void didReceiveIBI(float ibi, double timestamp) {
-        Log.e("EmpaE4", timestamp + " ibi" + 60 / ibi);
+        Log.e("EmpaE4", timestamp + " ibi" + (double)(60 / (double)ibi));
         measure_heartRate.add_mes((60 / ibi),timestamp);
         Log.e("EmpaE4", "get_current(): " + measure_gsr.get_current());
+        prev_ibi_ts = timestamp;
     }
 
     @Override
@@ -221,6 +225,7 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
             float floatgsr = floatobjgsr.floatValue();
             Float floatobjgsravg = new Float(measure_gsr.get_last_samples_avg());
             float floatgsravg = floatobjgsravg.floatValue();
+            MeasurementData data;
 
             Log.e("EmpaE4_TIMER", "connection status: " + device_status.toString());
             Log.e("EmpaE4_TIMER","heartrate: " + measure_heartRate.get_current());
@@ -229,16 +234,29 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
             Log.e("EmpaE4_TIMER","gsrAVG: " + measure_gsr.get_last_samples_avg());
             Log.e("EmpaE4_TIMER","timestamp: " + String.valueOf(timestamp));
 
-            if( !( floatheartrate == 0 || floatheartavg == 0 || floatgsr == 0 ||
-                    floatgsravg == 0 ) && device_status == EmpaStatus.CONNECTED ) {
+            if( !( floatheartrate == 0 || floatheartavg == 0 )
+                    && device_status == EmpaStatus.CONNECTED ) {
 
-                Log.e("EmpaE4_TIMER", "Sending data to firebase");
-
-                MeasurementData data = new MeasurementData(measure_gsr.get_current(),
-                        measure_gsr.get_last_samples_avg(),
-                        measure_heartRate.get_current(),
-                        measure_heartRate.get_last_samples_avg(),
-                        String.valueOf(timestamp));
+                // if difference in time is greater then 15 seconds
+                // we didnt get ibi measurements for to much time
+                // make the app alert
+                if((timestamp - prev_ibi_ts) >= 20)
+                {
+                    Log.e("EmpaE4_TIMER", "Sending FAKE data(100/50) to firebase");
+                    data = new MeasurementData(measure_gsr.get_current(),
+                            measure_gsr.get_last_samples_avg(),
+                            "100",
+                            "50",
+                            String.valueOf(timestamp));
+                }
+                else {
+                    Log.e("EmpaE4_TIMER", "Sending data to firebase");
+                    data = new MeasurementData(measure_gsr.get_current(),
+                            measure_gsr.get_last_samples_avg(),
+                            measure_heartRate.get_current(),
+                            measure_heartRate.get_last_samples_avg(),
+                            String.valueOf(timestamp));
+                }
 
                 fbManager.addHRMeasurementToken(data);
             }

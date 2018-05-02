@@ -1,34 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical"
-                                        android:fitsSystemWindows="true"
-                                        xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:openDrawer="start">
 
-<!--<FrameLayout
-    android:id="@+id/full_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">-->
-
-    <!--<android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="0dp"
-        app:theme="@style/Theme_Toolbar.Toolbar">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.Toolbar>-->
+        <include
+            android:id="@+id/app_bar_home"
+            layout="@layout/app_bar_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <include
-        layout="@layout/app_bar_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/okay_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_bar_home"
+            android:layout_margin="20dp"
+            android:background="@color/colorAccent"
+            android:text="Hi I'm ok."/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/okay_button"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:text="What would you like to do?"
+                android:textSize="23dp"/>
+
+            <Button
+                android:id="@+id/btn_album"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/holo_purple"
+                android:text="photo album"/>
+
+            <Button
+                android:id="@+id/btn_cont"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#4ecf35"
+                android:text="Contacts"/>
+
+            <Button
+                android:id="@+id/btn_game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/holo_blue_bright"
+                android:text="play a game"/>
+
+            <Button
+                android:id="@+id/btn_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#abffb2"
+                android:text="Listen to recordings"/>
+
+            <Button
+                android:id="@+id/btn_music"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#ffffbb33"
+                android:text="listen to music"/>
+        </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
@@ -36,11 +96,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="@color/white"
-        app:headerLayout="@layout/nav_header_home"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_home"
         app:itemTextAppearance="@style/text_c3_14"
         app:menu="@menu/activity_home_drawer"/>
-
-<!--</FrameLayout>-->
 
 </android.support.v4.widget.DrawerLayout>

@@ -5,6 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.RemoteException;
@@ -14,19 +16,28 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
 
 import app.heroeswear.com.heroesmakers.R;
 import app.heroeswear.com.heroesmakers.login.application.App;
@@ -35,7 +46,9 @@ import app.heroeswear.com.heroesmakers.login.media.PlaybackControlsFragment;
 
 public class AudioPlayerActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener
 {
+	private String 						selectedFile		= null;
 	private TextView					startPlayingButton 	= null;
+	private Spinner						recordingsSpinner 	= null;
 	private CardView                 	cardView        	= null;
 	private PlaybackControlsFragment 	controlsFragment 	= null;
 
@@ -121,6 +134,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 		setContentView(R.layout.activity_audio_player);
 
 		startPlayingButton = (TextView) findViewById(R.id.player_start_btn);
+		recordingsSpinner = (Spinner) findViewById(R.id.recordings_spinner);
 		cardView		= (CardView) findViewById(R.id.controls_container);
 		mediaBrowser	= new MediaBrowserCompat(this, new ComponentName(this, MediaPlaybackService.class), connectionCallback, null); //optional Bundle
 
@@ -132,6 +146,8 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 	{
 		super.onStart();
 		mediaBrowser.connect();
+
+		//getFiles();
 	}
 
 	@Override
@@ -274,12 +290,82 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
 
 	private void getFiles()
 	{
-		String path      = Environment.getExternalStorageDirectory().toString() + "/Recordings";
-		File   directory = new File(path);
-		File[] files     = directory.listFiles();
+		String 			path      	= Environment.getExternalStorageDirectory().toString() + "/Recordings";
+		File  	 		directory 	= new File(path);
+		File[] 			files     	= directory.listFiles();
+		List<String> 	recordings 	= new Vector<>();
 
 		for (int i = 0; i < files.length; i++)
-			Toast.makeText(this, files[i].getName(), Toast.LENGTH_SHORT).show();
+			recordings.add(files[i].getName());
 
+		recordings.add(" ");
+
+		inflateRecordingsSpinner(recordings);
 	}
+
+	private void inflateRecordingsSpinner(List<String> recordings)
+	{
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item, recordings);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		recordingsSpinner.setAdapter(adapter);
+		recordingsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+			{
+				selectedFile = (String) recordingsSpinner.getSelectedItem();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent)
+			{}
+		});
+
+		//recordingsSpinner.setSelection(adapter.getPosition());
+		recordingsSpinner.clearFocus();
+	}
+
+	public static synchronized boolean storeelectedName(final Context ctx, final String name)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		return storeStringToSharedPreferences(ctx, "SELECTED_NAME", name);
+	}
+
+	private static boolean storeStringToSharedPreferences(final Context ctx, final String name, final String value)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		if (name == null || name.isEmpty() || value == null || value.isEmpty())
+			throw new RuntimeException("String cannot be null or empty");
+
+		SharedPreferences.Editor editor = getSharedPreferencesEditor(ctx);
+
+		editor.putString(name, value);
+
+		return editor.commit();
+	}
+
+	private static SharedPreferences.Editor getSharedPreferencesEditor(final Context ctx)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		SharedPreferences content = getSharedPreferencesContent(ctx);
+
+		return content.edit();
+	}
+
+	private static SharedPreferences getSharedPreferencesContent(final Context ctx)
+	{
+		if (ctx == null)
+			throw new RuntimeException("Context cannot be null");
+
+		return ctx.getSharedPreferences("HEROES_PREF", Context.MODE_PRIVATE);
+	}
+
+
+
 }

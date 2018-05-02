@@ -8,15 +8,15 @@
     <color name="grey_500">#9E9E9E</color>
     <color name="p_Light">#e5ffff</color>
     <color name="white">#ffffff</color>
-    <color name="p_drawer">#b2dfdb</color>
+    <color name="p_drawer">#e0f7fa</color>
     <color name="drawer_divider">#DDDDDD</color>
 
     <color name="success_green">#41BCA0</color>
     <color name="wrong_red">#FF4081</color>
 
-    <color name="p_secondary">#e0f2f1</color>
-    <color name="p_dark">#82ada9</color>
-    <color name="p_dark_black">#37474f</color>
+    <color name="p_secondary">#dcedc8</color>
+    <color name="p_dark">#80deea</color>
+    <color name="p_dark_black">#4bacb8</color>
     <color name="problem">#f48fb1</color>
     <color name="ok">#a5d6a7</color>
 

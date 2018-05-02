@@ -36,11 +36,6 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name=".login.Activities.SolutionListActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity
             android:name=".login.Activities.EmergencyContactsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>

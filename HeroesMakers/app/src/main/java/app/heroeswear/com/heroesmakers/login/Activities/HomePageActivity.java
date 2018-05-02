@@ -21,19 +21,25 @@ public class HomePageActivity extends BaseActivity  {
     private Button bn_album;
     private Button bn_cont;
     private Button bt_okay;
+    private Button bn_rec;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
         initMenues();
 
         bt_okay = (Button) findViewById(R.id.okay_button);
-        bn_game = (Button) findViewById(R.id.okay_button);
-        bn_game.setOnClickListener(new View.OnClickListener(){
+        bt_okay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 moveTaskToBack(true);
+            }
+        });
+
+        bn_rec = (Button) findViewById(R.id.btn_rec);
+        bn_rec.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                launchActivity(AudioPlayerActivity.class);
             }
         });
 
@@ -77,7 +83,6 @@ public class HomePageActivity extends BaseActivity  {
             }
         });
     }
-
 
     private void launchActivity(Class cls){
         Intent intent = new Intent(this,cls);

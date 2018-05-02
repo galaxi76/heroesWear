@@ -8,7 +8,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public interface FBCalbacks {
     void onCreateAccountCompleted(FirebaseUser user);
+    void onCreateAccountFailed(String error);
     void onSignInCompleted(FirebaseUser user);
-    void onSignInFailed(FirebaseUser user) ;
+    void onSignInFailed(String error) ;
     void onSignOutCompleted();
 }

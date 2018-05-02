@@ -96,15 +96,7 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         }
 
         showProgressDialog()
-
-        // [START create_user_with_email]
-        // TODO convert to kotlin and add coroutines for hideProgressDialog();
         currentUser = fbManager?.createAccount(email, password,this)
-
-
-        hideProgressDialog()
-
-        // [END create_user_with_email]
     }
 
     private fun signIn(email: String, password: String) {
@@ -114,9 +106,7 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         }
 
         showProgressDialog()
-        // TODO convert to kotlin and add coroutines for hideProgressDialog();
         currentUser = fbManager?.signInUser(email, password,this)
-
     }
 
     private fun signOut() {
@@ -207,8 +197,8 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
 
 
     override fun onCreateAccountCompleted(user: FirebaseUser?) {
-        if (user == null)
-        {
+        hideProgressDialog()
+        if (user == null) {
             Toast.makeText(this, "Create account failed", Toast.LENGTH_LONG).show()
             return
         }
@@ -228,10 +218,14 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         }
     }
 
-    override fun onSignInCompleted(user: FirebaseUser?) {
+    override fun onCreateAccountFailed(error: String?) {
+        hideProgressDialog()
+        Toast.makeText(this, error?: "Error", Toast.LENGTH_LONG).show()
+    }
 
-        if (user == null)
-        {
+    override fun onSignInCompleted(user: FirebaseUser?) {
+        hideProgressDialog()
+        if (user == null) {
             Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()
             return
         }
@@ -248,12 +242,9 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         }
     }
 
-    override fun onSignInFailed(user: FirebaseUser?) {
+    override fun onSignInFailed(error: String?) {
         hideProgressDialog()
-        if (currentUser == null ){
-            Toast.makeText(this,"please insert correct user name/ password ",Toast.LENGTH_LONG).show()
-        }
-
+        Toast.makeText(this, error?: "Error", Toast.LENGTH_LONG).show()
     }
 
     override fun onSignOutCompleted() {

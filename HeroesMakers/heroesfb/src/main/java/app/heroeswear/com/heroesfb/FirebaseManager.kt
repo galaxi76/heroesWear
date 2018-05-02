@@ -45,10 +45,9 @@ class FirebaseManager() {
 
             } else {
                 // If sign in fails, display a message to the user.
-                Logger.e("Error: ${task.exception}")
+                Logger.e("Error: ${task.exception?.message}")
                 mCurrentUser = null //updateUI(null)
-                callback.onCreateAccountCompleted(mCurrentUser)
-
+                callback.onCreateAccountFailed(task.exception?.message ?: "Error")
             }
         }
         return mCurrentUser
@@ -68,7 +67,7 @@ class FirebaseManager() {
                 // If sign in fails, display a message to the user.
                 Logger.e("Error: ${task.exception}")
                 mCurrentUser = null
-                callback.onSignInFailed(mCurrentUser)
+                callback.onSignInFailed(task.exception?.message ?: "Error")
 
             }
         }

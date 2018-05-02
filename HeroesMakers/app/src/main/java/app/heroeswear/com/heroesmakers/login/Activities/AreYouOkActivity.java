@@ -20,33 +20,34 @@ public class AreYouOkActivity extends BaseActivity {
 
     private Button btn_notOk;
     private Button btn_Ok;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_are_you_ok);
 
         btn_notOk = (Button) findViewById(R.id.btn_not_ok);
-        btn_notOk.setOnClickListener(new View.OnClickListener(){
+        btn_notOk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 launchActivity();
             }
         });
 
         btn_Ok = (Button) findViewById(R.id.btn_ok);
-        btn_Ok.setOnClickListener(new View.OnClickListener(){
+        btn_Ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 moveTaskToBack(true);
             }
         });
 
-        //setShowWhenLocked(true);
-        //setTurnScreenOn(true);
     }
-    private void launchActivity(){
-        Intent intent = new Intent(AreYouOkActivity.this,SolutionListActivity.class);
+
+    private void launchActivity() {
+        Intent intent = new Intent(AreYouOkActivity.this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }
+
     @Override
     public void onAttachedToWindow() {
         //this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);

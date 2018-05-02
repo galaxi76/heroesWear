@@ -78,7 +78,7 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = fbManager?.onStart()
-
+        
 //        updateUI(currentUser)
         Logger.d("Push token: ${FirebaseManager.newInstance().getPushToken()}")
     }

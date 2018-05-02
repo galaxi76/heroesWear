@@ -33,7 +33,7 @@ public class AreYouOkActivity extends AppCompatActivity {
             }
         });
 
-        btn_Ok = (Button) findViewById(R.id.btn_not_ok);
+        btn_Ok = (Button) findViewById(R.id.btn_ok);
         btn_Ok.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 moveTaskToBack(true);
@@ -45,7 +45,7 @@ public class AreYouOkActivity extends AppCompatActivity {
         playNotificationSound();
     }
     private void launchActivity(){
-        Intent intent = new Intent(this,SolutionListActivity.class);
+        Intent intent = new Intent(AreYouOkActivity.this,SolutionListActivity.class);
         startActivity(intent);
     }
     @Override

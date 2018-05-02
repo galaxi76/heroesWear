@@ -25,7 +25,7 @@ public class SolutionListActivity extends AppCompatActivity {
     }
 
     private void launchGameActivity(){
-        Intent intent = new Intent(this,SolutionListActivity.class);
+        Intent intent = new Intent(this,TriviaActivity.class);
         startActivity(intent);
     }
 }

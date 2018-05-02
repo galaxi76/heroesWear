@@ -15,6 +15,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:name=".login.application.App"
@@ -22,13 +26,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".login.Activities.LoginSignInActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -40,18 +47,20 @@
             android:name=".login.Activities.HomePageActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".login.Activities.EmergencyContactsActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".login.Activities.NewContactActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
-
 
         <activity
             android:name=".login.Activities.AreYouOkActivity"
@@ -62,25 +71,29 @@
             android:theme="@style/AreYouOkTheme"
             android:turnScreenOn="true"/>
 
+        <activity
+            android:name=".login.Activities.TriviaActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".login.Activities.AudioPlayerActivity"
+            android:screenOrientation="portrait"/>
+
         <service android:name="common.EmpaE4"/>
+
+        <!-- FCM service -->
         <service android:name=".login.fcm.HeroesFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <!-- FCM service -->
         <service android:name=".login.fcm.HeroesFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
-        <activity
-            android:name=".login.Activities.TriviaActivity">
-        </activity>
-
-        <activity
-            android:name=".login.Activities.AudioPlayerActivity">
-        </activity>
 
         <!-- Media player background service -->
         <service
@@ -100,5 +113,4 @@
         </receiver>
 
     </application>
-
 </manifest>

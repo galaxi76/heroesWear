@@ -20,10 +20,6 @@ public class AreYouOkActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_are_you_ok);
-
-        //setShowWhenLocked(true);
-        //setTurnScreenOn(true);
-        playNotificationSound();
     }
 
     @Override
@@ -36,16 +32,5 @@ public class AreYouOkActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         super.onAttachedToWindow();
-    }
-
-    public void playNotificationSound() {
-        try {
-            Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
-                    + "://" + getPackageName() + "/raw/push_notification_sound");
-            Ringtone r = RingtoneManager.getRingtone(this, alarmSound);
-            r.play();
-        } catch (Exception e) {
-            Logger.Companion.e(e.getMessage());
-        }
     }
 }

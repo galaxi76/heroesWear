@@ -55,6 +55,7 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.email_signin_login)
+        Logger.d()
 
         // Views
         mStatusTextView = findViewById(R.id.status)

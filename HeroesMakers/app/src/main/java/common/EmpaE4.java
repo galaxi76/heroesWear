@@ -26,13 +26,14 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
     private static final String EMPATICA_API_KEY = "b1e5dc72e0d64626ba5138285a78480e"; //ADD API KEY
     private static final long START_DELAY_MS = (1000*60);
     //private static final long START_DELAY_MS = (1000*60);
-    private static final long EMPA_TIMER_PERIOD_MS = (1000*5);
+    private static final long EMPA_TIMER_PERIOD_MS = (1000*15);
     //private static final long EMPA_TIMER_PERIOD_MS = (1000*60);
     private EmpaDeviceManager deviceManager = null;
     private MeasurementClass measure_gsr = new MeasurementClass(60,10);
     private MeasurementClass measure_heartRate = new MeasurementClass(60,10);
     private Timer timer = new Timer();
     private FirebaseManager fbManager;
+    EmpaStatus device_status;
 
     /**
      * A constructor is required, and must call the super IntentService(String)
@@ -126,6 +127,8 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
 
     @Override
     public void didUpdateStatus(EmpaStatus status) {
+        device_status = status;
+
         // The device manager is ready for use
         Log.e("EmpaE4", "status is " + status);
         if (status == EmpaStatus.READY) {
@@ -210,20 +213,35 @@ public class EmpaE4 extends IntentService implements EmpaDataDelegate, EmpaStatu
         @Override
         public void run() {
             long timestamp = ( System.currentTimeMillis() / 1000 ); // timestamp in seconds
+            Float floatobjheartrate = new Float(measure_heartRate.get_current());
+            float floatheartrate = floatobjheartrate.floatValue();
+            Float floatobjheartavg = new Float(measure_heartRate.get_last_samples_avg());
+            float floatheartavg = floatobjheartavg.floatValue();
+            Float floatobjgsr = new Float(measure_gsr.get_current());
+            float floatgsr = floatobjgsr.floatValue();
+            Float floatobjgsravg = new Float(measure_gsr.get_last_samples_avg());
+            float floatgsravg = floatobjgsravg.floatValue();
 
-            Log.e("EmpaE4_TIMER","heartrate:" + measure_heartRate.get_current());
-            Log.e("EmpaE4_TIMER","heartrateAVG:" + measure_heartRate.get_last_samples_avg());
-            Log.e("EmpaE4_TIMER","gsr:" + measure_gsr.get_current());
-            Log.e("EmpaE4_TIMER","gsrAVG:" + measure_gsr.get_last_samples_avg());
-            Log.e("EmpaE4_TIMER","timestamp:" + String.valueOf(timestamp));
+            Log.e("EmpaE4_TIMER", "connection status: " + device_status.toString());
+            Log.e("EmpaE4_TIMER","heartrate: " + measure_heartRate.get_current());
+            Log.e("EmpaE4_TIMER","heartrateAVG: " + measure_heartRate.get_last_samples_avg());
+            Log.e("EmpaE4_TIMER","gsr: " + measure_gsr.get_current());
+            Log.e("EmpaE4_TIMER","gsrAVG: " + measure_gsr.get_last_samples_avg());
+            Log.e("EmpaE4_TIMER","timestamp: " + String.valueOf(timestamp));
 
-            MeasurementData data = new MeasurementData(measure_gsr.get_current(),
-                    measure_gsr.get_last_samples_avg(),
-                    measure_heartRate.get_current(),
-                    measure_heartRate.get_last_samples_avg(),
-                    String.valueOf(timestamp));
+            if( !( floatheartrate == 0 || floatheartavg == 0 || floatgsr == 0 ||
+                    floatgsravg == 0 ) && device_status == EmpaStatus.CONNECTED ) {
 
-            fbManager.addHRMeasurementToken(data);
+                Log.e("EmpaE4_TIMER", "Sending data to firebase");
+
+                MeasurementData data = new MeasurementData(measure_gsr.get_current(),
+                        measure_gsr.get_last_samples_avg(),
+                        measure_heartRate.get_current(),
+                        measure_heartRate.get_last_samples_avg(),
+                        String.valueOf(timestamp));
+
+                fbManager.addHRMeasurementToken(data);
+            }
         }
     };
 }

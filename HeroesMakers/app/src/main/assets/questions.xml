@@ -20,7 +20,8 @@
     </record>
     <record>
         <QuestionId>3</QuestionId>
-        <QuestionText>Who was the second season's winner of Israel's Big Brother show?</QuestionText>
+        <QuestionText>Who was the second season's winner of Israel's Big Brother show?
+        </QuestionText>
         <FirstAnswer>Eliraz sadeh</FirstAnswer>
         <SecondAnswer>Kuti sabag</SecondAnswer>
         <ThirdAnswer>Shifra Korenfeld</ThirdAnswer>
@@ -45,5 +46,250 @@
         <FourthAnswer>15 Yemen road</FourthAnswer>
         <CorrectAnswer>3</CorrectAnswer>
     </record>
-
+    <record>
+        <QuestionId>6</QuestionId>
+        <QuestionText>Which fictional city is the home of Batman?</QuestionText>
+        <FirstAnswer>Gotham City</FirstAnswer>
+        <SecondAnswer>san diego</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>7</QuestionId>
+        <QuestionText>Spinach is high in which mineral?</QuestionText>
+        <FirstAnswer>Iron</FirstAnswer>
+        <SecondAnswer>Sodium</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>8</QuestionId>
+        <QuestionText>Babe Ruth is associated with which sport?</QuestionText>
+        <FirstAnswer>golf</FirstAnswer>
+        <SecondAnswer>Baseball</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>9</QuestionId>
+        <QuestionText>In the film Babe, what type of animal was Babe?</QuestionText>
+        <FirstAnswer>A pig</FirstAnswer>
+        <SecondAnswer>A dolphin</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>10</QuestionId>
+        <QuestionText>What was Mohammed Ali's birth name?</QuestionText>
+        <FirstAnswer>Cassius Clay</FirstAnswer>
+        <SecondAnswer>John bonham</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>11</QuestionId>
+        <QuestionText>Which one is a famous crime-fighting cartoon dog?</QuestionText>
+        <FirstAnswer>snoopy</FirstAnswer>
+        <SecondAnswer>Scooby Doo</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>12</QuestionId>
+        <QuestionText>according to the phrase, to which European city do all roads lead?
+        </QuestionText>
+        <FirstAnswer>Vienna</FirstAnswer>
+        <SecondAnswer>Rome</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>13</QuestionId>
+        <QuestionText>On which mountain did Moses receive the Ten Commandments?</QuestionText>
+        <FirstAnswer>Mount Everest</FirstAnswer>
+        <SecondAnswer>Mount Sinai</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>14</QuestionId>
+        <QuestionText>Which is the tallest mammal?</QuestionText>
+        <FirstAnswer>The giraffe</FirstAnswer>
+        <SecondAnswer>The elephant</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>15</QuestionId>
+        <QuestionText>Mount Everest is found in which mountain range?</QuestionText>
+        <FirstAnswer>The Himalayas</FirstAnswer>
+        <SecondAnswer>The rockies</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>16</QuestionId>
+        <QuestionText>What is the name of the fairy in Peter Pan?</QuestionText>
+        <FirstAnswer>Tinkerbell</FirstAnswer>
+        <SecondAnswer>Shirley</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>17</QuestionId>
+        <QuestionText>Who directed the movie E.T?</QuestionText>
+        <FirstAnswer>Steven spielberg</FirstAnswer>
+        <SecondAnswer>Kevin Smith</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>18</QuestionId>
+        <QuestionText>How many strings does a violin have?</QuestionText>
+        <FirstAnswer>Two</FirstAnswer>
+        <SecondAnswer>four</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>19</QuestionId>
+        <QuestionText>What was the Hunchback of Notre Dame's name?</QuestionText>
+        <FirstAnswer>Shlomo</FirstAnswer>
+        <SecondAnswer>Quasimodo</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>20</QuestionId>
+        <QuestionText>What colors are the Japanese national flag?</QuestionText>
+        <FirstAnswer>White and red</FirstAnswer>
+        <SecondAnswer>blue and purple</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>21</QuestionId>
+        <QuestionText>What is the chemical symbol for Hydrogen?</QuestionText>
+        <FirstAnswer>H</FirstAnswer>
+        <SecondAnswer>D</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>22</QuestionId>
+        <QuestionText>Who is the author of the "Harry Potter" books?</QuestionText>
+        <FirstAnswer>J.K rowling</FirstAnswer>
+        <SecondAnswer>A.B joshua</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>23</QuestionId>
+        <QuestionText>Where does the cartoon family The Simpsons live?</QuestionText>
+        <FirstAnswer>Petah Tikva</FirstAnswer>
+        <SecondAnswer>Springfield</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>24</QuestionId>
+        <QuestionText>Which Australian animal enjoys eating eucalyptus leaves?</QuestionText>
+        <FirstAnswer>Koala bear</FirstAnswer>
+        <SecondAnswer>Kangaroo</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>25</QuestionId>
+        <QuestionText>Which ocean surrounds the Maldives?</QuestionText>
+        <FirstAnswer>The Indian</FirstAnswer>
+        <SecondAnswer>The Atlantic</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>26</QuestionId>
+        <QuestionText>Which is the world's biggest island?</QuestionText>
+        <FirstAnswer>Greenland</FirstAnswer>
+        <SecondAnswer>japan</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>27</QuestionId>
+        <QuestionText>Which country is Prague in?</QuestionText>
+        <FirstAnswer>Czech Republic</FirstAnswer>
+        <SecondAnswer>Romania</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>28</QuestionId>
+        <QuestionText>Which actor played Neo in The Matrix?</QuestionText>
+        <FirstAnswer>Edward Norton</FirstAnswer>
+        <SecondAnswer>Keanu Reeves</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>29</QuestionId>
+        <QuestionText>Which actress has won the most Oscars?</QuestionText>
+        <FirstAnswer>Katharine Hepburn</FirstAnswer>
+        <SecondAnswer>Meryl Streep</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>30</QuestionId>
+        <QuestionText>Which Shakespeare play features Shylock?</QuestionText>
+        <FirstAnswer>The merchant of Venice</FirstAnswer>
+        <SecondAnswer>Romeo and Juliet</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>31</QuestionId>
+        <QuestionText>which sport did Michael Jordan give up basketball for?</QuestionText>
+        <FirstAnswer>Baseball</FirstAnswer>
+        <SecondAnswer>Tennis</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>32</QuestionId>
+        <QuestionText>Which American city is considered the home of Jazz?</QuestionText>
+        <FirstAnswer>Miami</FirstAnswer>
+        <SecondAnswer>New Orleans</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>33</QuestionId>
+        <QuestionText>What is the capital of Peru?</QuestionText>
+        <FirstAnswer>San Jose</FirstAnswer>
+        <SecondAnswer>Lima</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>34</QuestionId>
+        <QuestionText>What is the currency of Denmark?</QuestionText>
+        <FirstAnswer>Krone</FirstAnswer>
+        <SecondAnswer>Peso</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>35</QuestionId>
+        <QuestionText>Which American President was an actor?</QuestionText>
+        <FirstAnswer>Barack Obama</FirstAnswer>
+        <SecondAnswer>Ronald Reagan</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>36</QuestionId>
+        <QuestionText>Who is Shrek’s wife?</QuestionText>
+        <FirstAnswer>Fiona</FirstAnswer>
+        <SecondAnswer>Anne Hathaway</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>37</QuestionId>
+        <QuestionText>From which language did the word “Ketchup” come?</QuestionText>
+        <FirstAnswer>Chinese</FirstAnswer>
+        <SecondAnswer>German</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>38</QuestionId>
+        <QuestionText>Who invented airplanes?</QuestionText>
+        <FirstAnswer>The Doobie brothers</FirstAnswer>
+        <SecondAnswer>The wright brothers</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>39</QuestionId>
+        <QuestionText>Which spacecraft took the first man on the moon?</QuestionText>
+        <FirstAnswer>Apollo 11</FirstAnswer>
+        <SecondAnswer>Douglas 4</SecondAnswer>
+        <CorrectAnswer>0</CorrectAnswer>
+    </record>
+    <record>
+        <QuestionId>40</QuestionId>
+        <QuestionText>What is spiderman's true name?</QuestionText>
+        <FirstAnswer>Jonah Schmidt</FirstAnswer>
+        <SecondAnswer>Peter Parker</SecondAnswer>
+        <CorrectAnswer>1</CorrectAnswer>
+    </record>
 </data-set>

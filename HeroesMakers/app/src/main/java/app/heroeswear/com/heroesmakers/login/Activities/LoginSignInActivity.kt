@@ -57,9 +57,6 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         setContentView(R.layout.email_signin_login)
         Logger.d()
 
-        //val intent = Intent(this, AudioPlayerActivity::class.java)
-        //startActivity(intent)
-
         // Views
         mStatusTextView = findViewById(R.id.status)
         mDetailTextView = findViewById(R.id.detail)
@@ -83,9 +80,24 @@ class LoginSignInActivity : BaseActivity(), View.OnClickListener, FBCalbacks {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = fbManager?.onStart()
-        
+
+
+
 //        updateUI(currentUser)
         Logger.d("Push token: ${FirebaseManager.newInstance().getPushToken()}")
+
+        if (currentUser != null)
+        {
+            mUser = User()
+            mUser.userId = currentUser?.uid
+            mUser.email = currentUser?.email
+
+            hideProgressDialog()
+            initEmpaE4()
+            openHomePage(mUser)
+            finish()
+        }
+
     }
     // [END on_start_check_user]
 

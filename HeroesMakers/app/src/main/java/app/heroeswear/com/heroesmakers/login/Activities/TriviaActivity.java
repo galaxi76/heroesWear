@@ -177,16 +177,44 @@ public class TriviaActivity extends AppCompatActivity implements View.OnClickLis
 		selectedEntryIndex 		= random.nextInt(questionsEntries.size());
 		XmlQuestionEntry entry 	= questionsEntries.get(selectedEntryIndex);
 
-		questionTitle.setText	(entry.questionText);
-		firstAnswer.setText		(entry.firstAnswer);
-		secondAnswer.setText	(entry.secondAnswer);
-		thirdAnswer.setText		(entry.thirdAnswer);
-		fourthAnswer.setText	(entry.fourthAnswer);
+		if (entry.questionText != null && entry.questionText.isEmpty() == false)
+			questionTitle.setText	(entry.questionText);
 
-		firstAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_gray);
-		secondAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_gray);
-		thirdAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_gray);
-		fourthAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_gray);
+		if (entry.firstAnswer != null && entry.firstAnswer.isEmpty() == false)
+		{
+			firstAnswer.setText		(entry.firstAnswer);
+			firstAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_light_blue);
+			firstAnswer.setVisibility(View.VISIBLE);
+		}
+		else
+			firstAnswer.setVisibility(View.GONE);
+
+		if (entry.secondAnswer != null && entry.secondAnswer.isEmpty() == false)
+		{
+			secondAnswer.setText	(entry.secondAnswer);
+			secondAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_light_blue);
+			secondAnswer.setVisibility(View.VISIBLE);
+		}
+		else
+			secondAnswer.setVisibility(View.GONE);
+
+		if (entry.thirdAnswer != null && entry.thirdAnswer.isEmpty() == false)
+		{
+			thirdAnswer.setText		(entry.thirdAnswer);
+			thirdAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_light_blue);
+			thirdAnswer.setVisibility(View.VISIBLE);
+		}
+		else
+			thirdAnswer.setVisibility(View.GONE);
+
+		if (entry.fourthAnswer != null && entry.fourthAnswer.isEmpty() == false)
+		{
+			fourthAnswer.setText	(entry.fourthAnswer);
+			fourthAnswer.setBackgroundResource(R.drawable.shape_ellipse_button_light_blue);
+			fourthAnswer.setVisibility(View.VISIBLE);
+		}
+		else
+			fourthAnswer.setVisibility(View.GONE);
 	}
 
 	private void correctAnswer(int answerIndex)

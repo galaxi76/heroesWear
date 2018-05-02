@@ -17,6 +17,7 @@ public class SolutionListActivity extends BaseActivity {
     private Button bn_album;
     private Button bn_cont;
     private Button bt_okay;
+    private Button bn_rec;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,13 @@ public class SolutionListActivity extends BaseActivity {
         bn_cont.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 launchActivity(EmergencyContactsActivity.class);
+            }
+        });
+
+        bn_rec = (Button) findViewById(R.id.btn_rec);
+        bn_rec.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                launchActivity(AudioPlayerActivity.class);
             }
         });
 

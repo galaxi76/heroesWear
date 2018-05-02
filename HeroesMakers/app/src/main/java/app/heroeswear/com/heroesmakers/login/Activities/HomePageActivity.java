@@ -22,6 +22,8 @@ public class HomePageActivity extends BaseActivity  {
     private Button bn_cont;
     private Button bt_okay;
     private Button bn_rec;
+    private Button btn_music;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,14 @@ public class HomePageActivity extends BaseActivity  {
             }
         });
 
+        btn_music = (Button) findViewById(R.id.btn_music);
+        btn_music.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent intent = new Intent("android.intent.action.MUSIC_PLAYER");
+                Intent chooser = Intent.createChooser(intent,"Pick me");
+                startActivity(chooser);
+            }
+        });
 
         bn_album = (Button) findViewById(R.id.btn_album);
         bn_album.setOnClickListener(new View.OnClickListener() {

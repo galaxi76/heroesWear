@@ -37,8 +37,8 @@ class FirebaseManager() {
         mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                Logger.d("Success")
                 mCurrentUser = mAuth.currentUser
+                Logger.d("Success: user uuid: " + getUid())
                 updateUserEmail(email)
                 updatePushToken()
                 callback.onCreateAccountCompleted(mCurrentUser)
@@ -58,8 +58,8 @@ class FirebaseManager() {
         mAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                Logger.d("Success")
                 mCurrentUser = mAuth.currentUser
+                Logger.d("Success: user uuid: " + getUid())
                 updateUserEmail(email)
                 updatePushToken()
                 callback.onSignInCompleted(mCurrentUser)

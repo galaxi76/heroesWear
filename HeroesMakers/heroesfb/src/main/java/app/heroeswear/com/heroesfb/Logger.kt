@@ -15,7 +15,7 @@ class Logger {
                 val element = stackTrace[4]
                 val className = element.className
                 val shortClassName = className.substring(className.lastIndexOf(".") + 1)
-                log = "Tread: " + Thread.currentThread().id + " | " +
+                log = //"Tread: " + Thread.currentThread().id + " | " +
                         "Class Name: " + shortClassName + " | " +
                         "Method: " + element.methodName + " | " +
                         text
